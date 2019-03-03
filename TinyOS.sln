@@ -52,6 +52,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sample Programs", "Sample P
 		Sample Programs\testStack.bat = Sample Programs\testStack.bat
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TinyOsWpf", "TinyOsWpf\TinyOsWpf.csproj", "{75BCC162-BCD3-4DAF-8A0B-0CB8B1A980CF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -62,12 +64,17 @@ Global
 		{47BD5898-A552-42BC-86C3-231E04FB84DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{47BD5898-A552-42BC-86C3-231E04FB84DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{47BD5898-A552-42BC-86C3-231E04FB84DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{75BCC162-BCD3-4DAF-8A0B-0CB8B1A980CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{75BCC162-BCD3-4DAF-8A0B-0CB8B1A980CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{75BCC162-BCD3-4DAF-8A0B-0CB8B1A980CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{75BCC162-BCD3-4DAF-8A0B-0CB8B1A980CF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{47BD5898-A552-42BC-86C3-231E04FB84DD} = {1C4F21C7-9F73-44AB-BABA-37B63FD55C88}
+		{75BCC162-BCD3-4DAF-8A0B-0CB8B1A980CF} = {1C4F21C7-9F73-44AB-BABA-37B63FD55C88}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {EC60F6D1-76C5-4C77-9BA8-D10F577809EC}

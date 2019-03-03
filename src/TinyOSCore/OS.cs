@@ -108,14 +108,20 @@ namespace Hanselman.CST352
 		/// </summary>
 		private bool bDumpInstructions = false; 
 
-		/// <summary>
-		/// Public constructor for the OS
-		/// </summary>
-		/// <param name="virtualMemoryBytes">The number of "addressable" bytes of memory for the whole OS.</param>
-		public OS(uint virtualMemoryBytes)
+        public bool IsDumpInstruction { get; set; }
+        public bool IsPauseOnExit { get; set; }
+        public bool IsDumpContextSwitch { get; set; }
+        public uint StackSize { get; set; }
+        public uint DataSize { get; set; }
+
+        /// <summary>
+        /// Public constructor for the OS
+        /// </summary>
+        /// <param name="virtualMemoryBytes">The number of "addressable" bytes of memory for the whole OS.</param>
+        public OS(MemoryManager memoryMgr)
 		{
-			memoryMgr = new MemoryManager(virtualMemoryBytes);
-			bDumpInstructions = bool.Parse(EntryPoint.Configuration["DumpInstruction"]);
+			this.memoryMgr = memoryMgr;
+			bDumpInstructions = IsDumpInstruction;
 		}
 
 		/// <summary>
@@ -181,7 +187,7 @@ namespace Hanselman.CST352
 				if (runningProcesses.Count == 0) 
 				{
 					Console.WriteLine("No Processes");
-					if (bool.Parse(EntryPoint.Configuration["PauseOnExit"]) == true)System.Console.ReadLine();
+					if (IsPauseOnExit) System.Console.ReadLine();
 					System.Environment.Exit(0);
 				}
 				else
@@ -334,7 +340,7 @@ namespace Hanselman.CST352
 		/// </summary>
 		public void DumpContextSwitchIn()
 		{
-			if (bool.Parse(EntryPoint.Configuration["DumpContextSwitch"]) == false)
+			if (!IsDumpContextSwitch)
 				return;
 			Console.WriteLine("Switching in Process {0} with ip at {1}",currentProcess.PCB.pid,currentProcess.PCB.ip);
 		}
@@ -345,7 +351,7 @@ namespace Hanselman.CST352
 		/// </summary>
 		public void DumpContextSwitchOut()
 		{
-			if (bool.Parse(EntryPoint.Configuration["DumpContextSwitch"]) == false)
+			if (!IsDumpContextSwitch)
 				return;
 			Console.WriteLine("Switching out Process {0} with ip at {1}",currentProcess.PCB.pid,CPU.ip);
 		}
@@ -428,7 +434,7 @@ namespace Hanselman.CST352
 			// Set stack pointer at the end of memory
 			//
 			p.PCB.sp = memorySize-1;
-			p.PCB.stackSize = uint.Parse(EntryPoint.Configuration["StackSize"]);
+			p.PCB.stackSize = StackSize;
 
 			//
 			// SETUP CODE SECTION
@@ -445,7 +451,7 @@ namespace Hanselman.CST352
 			// Point Global Data just after the Code for now...
 			//
 			p.PCB.registers[9] = (uint)roundedCodeLength; 
-			p.PCB.dataSize = uint.Parse(EntryPoint.Configuration["DataSize"]);
+			p.PCB.dataSize = DataSize;
 
 			//
 			// SETUP HEAP SECTION

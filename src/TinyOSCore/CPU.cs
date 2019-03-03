@@ -63,13 +63,18 @@ namespace Hanselman.CST352
 		/// </summary>
 		public static OS theOS = null;
 
-		/// <summary>
-		/// Initialized our <see cref="physicalMemory"/> array that represents physical memory.  Should only be called once.
-		/// </summary>
-		/// <param name="memorySize">The size of physical memory</param>
-		public static void initPhysicalMemory(uint memorySize)
+        public static uint MemoryPageSize { get; set; }
+        public static bool IsDumpRegisters { get; set; }
+        public static bool IsDumpInstruction { get; set; }
+        public static bool IsDumpPhysicalMemory { get; set; }
+
+        /// <summary>
+        /// Initialized our <see cref="physicalMemory"/> array that represents physical memory.  Should only be called once.
+        /// </summary>
+        /// <param name="memorySize">The size of physical memory</param>
+        public static void initPhysicalMemory(uint memorySize)
 		{
-			pageSize = uint.Parse(EntryPoint.Configuration["MemoryPageSize"]);
+			pageSize = MemoryPageSize;
 
 			uint newMemorySize = UtilRoundToBoundary(memorySize, CPU.pageSize);
 
@@ -218,7 +223,7 @@ namespace Hanselman.CST352
 		/// </summary>
 		public static void DumpRegisters()
 		{
-			if (bool.Parse(EntryPoint.Configuration["DumpRegisters"]) == false)
+			if (!IsDumpRegisters)
 				return;
 
 			Console.WriteLine("CPU Registers: r1 {0,-8:G}          r6  {1,-8:G}",registers[1],registers[6]);
@@ -235,7 +240,7 @@ namespace Hanselman.CST352
 		/// </summary>
 		public static void DumpInstruction()
 		{
-			if (bool.Parse(EntryPoint.Configuration["DumpInstruction"]) == false)
+			if (!IsDumpInstruction)
 				return;
 
 			Console.WriteLine(" Pid:{0} {1} {2}",CPU.registers[8],(InstructionType)theOS.memoryMgr[theOS.currentProcess.PCB.pid,CPU.ip],(uint)theOS.memoryMgr[theOS.currentProcess.PCB.pid,CPU.ip]);
@@ -246,7 +251,7 @@ namespace Hanselman.CST352
 		/// </summary>
 		public static void DumpPhysicalMemory()
 		{
-			if (bool.Parse(EntryPoint.Configuration["DumpPhysicalMemory"]) == false)
+			if (!IsDumpPhysicalMemory)
 				return;
 
 			int address = 0;

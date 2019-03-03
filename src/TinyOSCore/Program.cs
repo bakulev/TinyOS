@@ -46,11 +46,13 @@ namespace Hanselman.CST352
 	{
 		private InstructionCollection instructions = null;
 
-		/// <summary>
-		/// Public constructor for a Program
-		/// </summary>
-		/// <param name="instructionsParam">The collection of <see cref="Instruction"/> objects that make up this Program</param>
-		public Program(InstructionCollection instructionsParam)
+        public bool IsDumpProgram { get; set; }
+
+        /// <summary>
+        /// Public constructor for a Program
+        /// </summary>
+        /// <param name="instructionsParam">The collection of <see cref="Instruction"/> objects that make up this Program</param>
+        public Program(InstructionCollection instructionsParam)
 		{
 			instructions = new InstructionCollection(instructionsParam);
 		}
@@ -121,7 +123,7 @@ namespace Hanselman.CST352
 		/// </summary>
 		public void DumpProgram()
 		{
-			if (bool.Parse(EntryPoint.Configuration["DumpProgram"]) == false)
+			if (!IsDumpProgram)
 				return;
 
 			foreach (Instruction i in this.instructions)
